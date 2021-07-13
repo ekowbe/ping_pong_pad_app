@@ -1,0 +1,2 @@
+class FixtureTeamsController < ApplicationController
+end

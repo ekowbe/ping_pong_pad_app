@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  completed: false
+  date: 2021-07-13
+  time: 2021-07-13 09:15:18
+
+two:
+  completed: false
+  date: 2021-07-13
+  time: 2021-07-13 09:15:18
