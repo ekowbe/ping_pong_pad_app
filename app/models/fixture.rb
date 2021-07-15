@@ -20,4 +20,23 @@ class Fixture < ApplicationRecord
     def self.past_fixtures
         Fixture.in_order.select{|fixture| fixture.date_time < Time.now}
     end
+
+    def self.date_times
+        date_times = Fixture.in_order.map{|fixture| fixture.date_time}
+    end
+
+    def self.dates
+        dates = Fixture.date_times.map{|dt| dt.to_date}.uniq
+    end
+
+    def self.fixtures_by_date
+        fixtures_by_date = {}
+        dates = Fixture.dates
+        dates.each do |date|
+            fixtures_on_current_date = Fixture.in_order.select{|f| f.date_time.to_date == date}
+            fixtures_by_date[date] = fixtures_on_current_date
+        end
+
+        fixtures_by_date
+    end
 end

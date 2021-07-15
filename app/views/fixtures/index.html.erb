@@ -1,11 +1,28 @@
 <h1>Upcoming Fixtures</h1>
 
 
-<% @upcoming_fixtures.each do |f|%>
-    <ol> <%= f.name %> </ol>
+<% @upcoming_fixture_dates.each do |date| %>
+    <h2><%=date%></h2>
+    <ol>
+        <% @fixtures_by_date[date].each do |fixture| %>
+        
+            <li> <%= fixture.name %> - <%= fixture.date_time.strftime("%H:%M") %> </li>
+        
+        <% end %>
+    </ol>
+
 <% end %>
 
-
-
-
 <h1>Past Fixtures</h1>
+
+<% @past_fixture_dates.each do |date| %>
+    <h2><%=date%></h2>
+    <ol>
+        <% @fixtures_by_date[date].each do |fixture| %>
+        
+            <li> <%= fixture.name %> - <%= fixture.date_time.strftime("%H:%M") %> </li>
+        
+        <% end %>
+    </ol>
+
+<% end %>
