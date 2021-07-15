@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   resources :match_players
   resources :fixture_teams
   resources :matches
-  resources :fixtures
+  resources :fixtures, only: [:index, :show]
   resources :players
   resources :teams
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

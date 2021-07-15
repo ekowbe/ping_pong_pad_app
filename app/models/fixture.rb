@@ -8,4 +8,16 @@ class Fixture < ApplicationRecord
         # we want the minutes to occur in multiples of 15
         self.date_time.strftime("%A, %B %d, %Y %H:#{min}")
     end
+
+    def self.in_order
+        Fixture.all.sort_by{|fixture| fixture.date_time}
+    end
+
+    def self.upcoming_fixtures
+        Fixture.in_order.select{|fixture| fixture.date_time > Time.now}
+    end
+
+    def self.past_fixtures
+        Fixture.in_order.select{|fixture| fixture.date_time < Time.now}
+    end
 end
