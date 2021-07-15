@@ -1,0 +1,4 @@
+<h1> <%= @player.first_name %> <%= @player.last_name %> </h1>
+
+<p> Class of <%= @player.class_of %> </p>
+<p> Team: <%= link_to @player.team.name, team_path(@player.team) %> </p>

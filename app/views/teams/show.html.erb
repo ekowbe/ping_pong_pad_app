@@ -1,3 +1,11 @@
 <h1><%= @team.name %></h1>
 
-<p> <%= @team.description %> </p>
+<p> Description: <%= @team.description %> </p>
+
+<p> Team Roster: </p>
+<% @team.players.each do |player| %>
+    <ul> <%= link_to player.name, player_path(player) %> </ul>
+<% end %>
+
+<br>
+<p> <%= link_to 'Return to All Teams', teams_path %> </p>
