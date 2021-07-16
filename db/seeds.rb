@@ -62,6 +62,7 @@ def create_fixture_teams(n, fixture)
         ft = FixtureTeam.new
         ft.fixture = fixture
         ft.team = t
+        ft.score = 0
         ft.save
 
     end
@@ -130,22 +131,19 @@ def create_match_players(match)
 
         #byebug
         #switch value of winner for next player
-        if winner
+        if winner == 1
             # update score
             fts = FixtureTeam.select{|ft| ft.fixture_id == match.fixture_id}
 
             ft = fts.find{|ft| ft.team == t}
-            #byebug
             ft.score = ft.score ? ft.score + 1 : 1
-            #byebug
             ft.save
-            #byebug
-            if winner  == 1
-                winner = 0
-            else
-                winner = 1
-            end
-        end  
+
+            winner = 0
+        else
+            winner = 1
+        end
+        
     end
 end
 
@@ -159,7 +157,7 @@ def create_matches(fixture, num_of_matches)
         match.name = "Match #{c} between #{fixture.teams[0].name} and #{fixture.teams[1].name}"
         match.save
 
-        # make two players from each teams for the matches
+        # make two match_players 
         create_match_players(match)
         c += 1
     end
