@@ -1,0 +1,17 @@
+<h1>Sign Up</h1>
+
+<%= render(partial: "layouts/errors", locals: { model: @user }) %>
+<%= form_with model: @user, url: signup_attempt_path do |f| %>
+  <%= f.label :username %>
+  <%= f.text_field :username %><br>
+  <%= f.label :fullname %>
+  <%= f.text_field :fullname %><br>
+  <%= f.label :password %>
+  <%= f.text_field :password %><br>
+
+  <br><br>
+  <%= f.submit "Sign Up" %>
+<% end %>
+
+<br>
+<p>Already Have an Account? <%= link_to 'Sign In!', signin_path %></p>

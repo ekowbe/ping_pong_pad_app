@@ -1,40 +1,39 @@
-<div class="container">
-    <div class="row">
-        <h1 class="display-1">Upcoming Fixtures</h1>
-    </div>
-    <br>
-    <% @upcoming_fixture_dates.each do |date| %>
-        <div class="row">
-            <h3><%=date.strftime("%A, %B %d, %Y")%></h3>
-        </div>
-        <ul>
-            <% @fixtures_by_date[date].each do |fixture| %>
+<h1>Upcoming Fixtures</h1>
 
-                <div class="row bg-light position-relative">
-                    <p class="col-2 mt-4 ml-4 ">
-                        <strong> <%= fixture.first_team.name %> </strong> 
-                    </p>
-                    <p class="col-1 mt-4 ps-md-0">
-                        <%= image_tag(fixture.first_team.college.shield, class: "w-25") %>
-                    </p>
-                    <p class="col-1 mt-4 ps-md-0">
-                        <%= fixture.date_time.strftime("%H:%M") %>
-                    </p>
-                    <p class="col-1 mt-4 ps-md-0">
-                        <%= image_tag(fixture.second_team.college.shield, class: "w-25") %>
-                    </p>
-                    <p class="col-2 mt-4">
-                        <strong> <%= fixture.second_team.name %> </strong> 
-                    </p>
-                    
-                    <a href="<%= fixture_path(fixture) %>" class="stretched-link col offset-md-4 p-4 ps-md-0"> 
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
+<% if signed_in? %>
+    <h2><%= link_to 'All Teams', teams_path %></h2>
 
-                </div>
+    <h2><%= link_to 'All Players', players_path %></h2>
 
-            <% end %>
-        </ul>
+    <p><%= button_to('Sign Out', signout_path, method: 'delete')%></p>
+<% else %>
+    <p><%= button_to('Sign Up/Sign In', signup_path, method: 'get')%></p>
+<% end %>
 
-    <% end %>
-</div>
+<% @upcoming_fixture_dates.each do |date| %>
+    <h2><%=date%></h2>
+    <ul>
+        <% @fixtures_by_date[date].each do |fixture| %>
+
+            <div>
+
+                <p> <%= link_to fixture.name, fixture_path(fixture) %> - <%= fixture.date_time.strftime("%H:%M") %> </p>
+            </div>
+        <% end %>
+    </ul>
+
+<% end %>
+
+<h1>Past Fixtures</h1>
+
+<% @past_fixture_dates.each do |date| %>
+    <h2><%=date%></h2>
+    <ol>
+        <% @fixtures_by_date[date].each do |fixture| %>
+        
+            <li> <%= fixture.name %> - <%= fixture.date_time.strftime("%H:%M") %> </li>
+        
+        <% end %>
+    </ol>
+
+<% end %>

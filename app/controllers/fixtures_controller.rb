@@ -1,4 +1,6 @@
 class FixturesController < ApplicationController
+    before_action :redirect_if_not_signed_in, only: [:show]
+
     def index
         @fixture_dates = Fixture.dates
         @upcoming_fixture_dates = @fixture_dates.select{|date| date > Time.now}
