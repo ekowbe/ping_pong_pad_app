@@ -1,5 +1,15 @@
 <h1>Upcoming Fixtures</h1>
 
+<% if signed_in? %>
+    <h2><%= link_to 'All Teams', teams_path %></h2>
+
+    <h2><%= link_to 'All Players', players_path %></h2>
+
+    <p><%= button_to('Sign Out', signout_path, method: 'delete')%></p>
+<% else %>
+    <p><%= button_to('Sign Up/Sign In', signup_path, method: 'get')%></p>
+<% end %>
+
 <% @upcoming_fixture_dates.each do |date| %>
     <h2><%=date%></h2>
     <ul>
@@ -27,7 +37,3 @@
     </ol>
 
 <% end %>
-
-<h2><%= link_to 'All Teams', teams_path %></h2>
-
-<h2><%= link_to 'All Players', players_path %></h2>
