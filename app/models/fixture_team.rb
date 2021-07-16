@@ -6,7 +6,4 @@ class FixtureTeam < ApplicationRecord
         c = 0
         self.team.matches
     end
-
-    def calculate_winner
-    end
 end

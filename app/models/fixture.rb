@@ -39,4 +39,15 @@ class Fixture < ApplicationRecord
 
         fixtures_by_date
     end
+
+    def calculate_winner
+        team1, team2 = self.teams
+        
+        # get score for each team
+        scores = self.fixture_teams.sort_by{|ft| ft.score}
+
+        #team1_score = 
+
+        
+    end
 end

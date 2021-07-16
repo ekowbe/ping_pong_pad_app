@@ -68,10 +68,10 @@ def create_fixture_teams(n, fixture)
 end
 
 # create past fixtures
-10.times do
+40.times do
     # create a new fixture
     f = Fixture.new
-    f.date_time = (Time.now-rand(90))
+    f.date_time = (Time.now-rand(11000000))
     f.date_time = f.format_date_time.to_datetime
     f.completed = 1
 
@@ -81,12 +81,19 @@ end
     
     # Fixture name for index of fixtures. Format: "Team 1 vs Team 2"
     f.name = "#{f.teams[0].name} vs #{f.teams[1].name}"
+
+    # declare the winer of a fixture
+    # get the teams
+
+    # compare the scores
+    # pick the team with the highest score
+
     f.save
 
 end
 
 # create upcoming fixtures
-20.times do
+30.times do
     # create a new fixture
     f = Fixture.new
     f.date_time = (Time.now+rand(11000000))
@@ -105,25 +112,35 @@ end
 def create_match_players(match)
     
     teams = match.fixture.teams
-    winner = 1
+    
+
     teams.each do |t|
+        winner = 1
+        #byebug
         match_player = MatchPlayer.new
         match_player.match = match
         match_player.player = t.players.sample
         match_player.winner = winner
-        
+        match_player.save
+
+        #byebug
         #switch value of winner for next player
-        winner = winner ? 0 : 1
         if winner
             # update score
-            ft = FixtureTeam.find{|ft| ft.fixture_id == match.fixture_id && ft.team_id == match_player.player.team_id}
-            ft.score = ft.score ? ft.score + 1 : 1
-            winner = 0
-        else
-            winner = 1 
-        end
+            fts = FixtureTeam.select{|ft| ft.fixture_id == match.fixture_id}
 
-        match_player.save
+            ft = fts.find{|ft| ft.team == t}
+            #byebug
+            ft.score = ft.score ? ft.score + 1 : 1
+            #byebug
+            ft.save
+            #byebug
+            if rand(0...100000) % 2 ==0
+                winner = 0
+            else
+                winner = 1
+            end
+        end  
     end
 end
 
@@ -134,19 +151,17 @@ def create_matches(fixture, num_of_matches)
     num_of_matches.times do
         match = Match.new
         match.fixture = fixture
-        match.name = "Match #{c} Between #{fixture.teams[0].name} and #{fixture.teams[1].name}"
+        match.name = "Match #{c} between #{fixture.teams[0].name} and #{fixture.teams[1].name}"
+        match.save
 
         # make two players from each teams for the matches
         create_match_players(match)
-
-
-        match.save
         c += 1
     end
 end
 
 # 3 matches per fixture
-Fixture.all.first(10).each do |f|
+Fixture.all.first(40).each do |f|
     c = 0
     num_of_matches = 3 # best of 3!
     create_matches(f, num_of_matches)

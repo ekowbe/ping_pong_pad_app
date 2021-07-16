@@ -1,15 +1,16 @@
 <h1>Upcoming Fixtures</h1>
 
-
 <% @upcoming_fixture_dates.each do |date| %>
     <h2><%=date%></h2>
-    <ol>
+    <ul>
         <% @fixtures_by_date[date].each do |fixture| %>
-        
-            <li> <%= fixture.name %> - <%= fixture.date_time.strftime("%H:%M") %> </li>
-        
+
+            <div>
+
+                <p> <%= link_to fixture.name, fixture_path(fixture) %> - <%= fixture.date_time.strftime("%H:%M") %> </p>
+            </div>
         <% end %>
-    </ol>
+    </ul>
 
 <% end %>
 
