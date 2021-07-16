@@ -2,9 +2,9 @@
 
 <table>
     <tr>
-        <th><%=  @team2.name %></th>
+        <th><%= link_to @team2.name, team_path(@team2) %></th>
         <td>&nbsp;</td>
-        <th><%=  @team1.name %></th>
+        <th><%= link_to @team1.name, team_path(@team1) %></th>
     </tr>
 
     <tr>
