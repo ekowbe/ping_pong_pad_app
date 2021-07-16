@@ -2,3 +2,6 @@
 
 <p> Class of <%= @player.class_of %> </p>
 <p> Team: <%= link_to @player.team.name, team_path(@player.team) %> </p>
+
+<br>
+<p><%= link_to 'All Players', players_path %></p>

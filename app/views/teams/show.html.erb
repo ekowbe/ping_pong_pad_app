@@ -4,7 +4,7 @@
 
 <p> Team Roster: </p>
 <% @team.players.each do |player| %>
-    <ul> <%= link_to player.name, player_path(player) %> </ul>
+    <li> <%= link_to player.name, player_path(player) %> </li>
 <% end %>
 
 <br>
