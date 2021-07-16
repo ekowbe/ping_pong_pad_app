@@ -9,10 +9,11 @@ class Team < ApplicationRecord
     end
 
     def num_games_won
-        self.fixture_teams.select{|ft| ft.winner == 1}
+        self.fixture_teams.select{|ft| ft.winner == true}.count
     end
 
     def num_games_lost
+        self.fixture_teams.select{|ft| ft.winner == false}.count
     end
 
 

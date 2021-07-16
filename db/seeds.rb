@@ -161,6 +161,8 @@ def create_matches(fixture, num_of_matches)
         create_match_players(match)
         c += 1
     end
+
+
 end
 
 # 3 matches per fixture
@@ -168,6 +170,22 @@ Fixture.all.first(40).each do |f|
     c = 0
     num_of_matches = 3 # best of 3!
     create_matches(f, num_of_matches)
+    #byebug
+
+    # declare winner
+    
+    # pick ft with highest score
+    ft_with_highest_score = f.fixture_teams.max {|ft1, ft2| ft1.score <=> ft2.score}
+
+    # declare winner
+    ft_with_highest_score.winner = 1
+    ft_with_highest_score.save
+    
+    # declare loser
+    ft_that_lost = f.fixture_teams.find{|ft| ft != ft_with_highest_score}
+    ft_that_lost.winner = 0
+    ft_that_lost.save
+
 end
 
 
