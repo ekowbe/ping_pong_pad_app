@@ -40,14 +40,11 @@ class Fixture < ApplicationRecord
         fixtures_by_date
     end
 
-    def calculate_winner
-        team1, team2 = self.teams
-        
-        # get score for each team
-        scores = self.fixture_teams.sort_by{|ft| ft.score}
+    def first_team
+        self.fixture_teams.first.team
+    end
 
-        #team1_score = 
-
-        
+    def second_team
+        self.fixture_teams.last.team
     end
 end
