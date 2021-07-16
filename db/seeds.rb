@@ -16,12 +16,25 @@ Match.destroy_all
 MatchPlayer.destroy_all
 # User.destroy_all
 
+ 
 # create colleges 
-colleges = ["Benjamin Franklin", "Berkeley", "Branford", "Davenport", "Ezra Stiles", "Grace Hopper", "Jonathan Edwards", "Morse", "Pauli Murray", "Pierson", "Saybrook", "Silliman", "Timothy Dwight", "Trumbull"]
+college_names = ["Benjamin Franklin", "Berkeley", "Branford", "Davenport", "Ezra Stiles", "Grace Hopper", "Jonathan Edwards", "Morse", "Pauli Murray", "Pierson", "Saybrook", "Silliman", "Timothy Dwight", "Trumbull"]
 
-colleges.each do |c|
-    college = College.new(name: c)
+count = 0
+college_names.each do |name|
+    college = College.new(name: name)
+
+    # add crest
+
+    college.shield.attach(
+        io: File.open("app/assets/images/shield_#{count}.png"),
+        filename: "crest_#{count}.png",
+        content_type: 'application/png',
+        identify: false
+    )
+
     college.save
+    count += 1
 end
 
 # create teams
@@ -32,6 +45,7 @@ College.all.each do |c|
     team.description = Faker::Lorem.paragraph
 
     team.save
+     
 end
 
 def create_player(team, classes)
@@ -58,30 +72,34 @@ def create_fixture_teams(n, fixture)
     # pick n random teams for this fixture
     teams = Team.all.sample(n)
     
+     
+
     teams.each do |t|
         ft = FixtureTeam.new
         ft.fixture = fixture
         ft.team = t
         ft.score = 0
         ft.save
-
+        
     end
+
+    
 end
 
 # create past fixtures
 40.times do
     # create a new fixture
-    f = Fixture.new
-    f.date_time = (Time.now-rand(11000000))
-    f.date_time = f.format_date_time.to_datetime
-    f.completed = 1
+    sample_fixture = Fixture.new
+    sample_fixture.date_time = (Time.now-rand(11000000))
+    sample_fixture.date_time = sample_fixture.format_date_time.to_datetime
+    sample_fixture.completed = 1
 
     # create two fixture_teams
     num_fixture_teams = 2
-    create_fixture_teams(num_fixture_teams, f)
-    
+    create_fixture_teams(num_fixture_teams, sample_fixture)
+
     # Fixture name for index of fixtures. Format: "Team 1 vs Team 2"
-    f.name = "#{f.teams[0].name} vs #{f.teams[1].name}"
+    sample_fixture.name = "#{sample_fixture.teams[0].name} vs #{sample_fixture.teams[1].name}"
 
     # declare the winer of a fixture
     # get the teams
@@ -89,25 +107,25 @@ end
     # compare the scores
     # pick the team with the highest score
 
-    f.save
+    sample_fixture.save
 
 end
 
 # create upcoming fixtures
 30.times do
     # create a new fixture
-    f = Fixture.new
-    f.date_time = (Time.now+rand(11000000))
-    f.date_time = f.format_date_time.to_datetime
-    f.completed = 0
+    sample_fixture = Fixture.new
+    sample_fixture.date_time = (Time.now+rand(11000000))
+    sample_fixture.date_time = sample_fixture.format_date_time.to_datetime
+    sample_fixture.completed = 0
 
     # create two fixture_teams
     num_fixture_teams = 2
-    create_fixture_teams(num_fixture_teams, f)
+    create_fixture_teams(num_fixture_teams, sample_fixture)
 
     # Fixture name for index of fixtures. Format: "Team 1 vs Team 2"
-    f.name = "#{f.teams[0].name} vs #{f.teams[1].name}"
-    f.save
+    sample_fixture.name = "#{sample_fixture.teams[0].name} vs #{sample_fixture.teams[1].name}"
+    sample_fixture.save
 end
 
 def create_match_players(match)
@@ -122,14 +140,14 @@ def create_match_players(match)
 
     teams.each do |t|
         
-        #byebug
+        # 
         match_player = MatchPlayer.new
         match_player.match = match
         match_player.player = t.players.sample
         match_player.winner = winner
         match_player.save
 
-        #byebug
+        # 
         #switch value of winner for next player
         if winner == 1
             # update score
@@ -170,7 +188,7 @@ Fixture.all.first(40).each do |f|
     c = 0
     num_of_matches = 3 # best of 3!
     create_matches(f, num_of_matches)
-    #byebug
+    # 
 
     # declare winner
     
@@ -180,7 +198,7 @@ Fixture.all.first(40).each do |f|
     # declare winner
     ft_with_highest_score.winner = 1
     ft_with_highest_score.save
-    
+
     # declare loser
     ft_that_lost = f.fixture_teams.find{|ft| ft != ft_with_highest_score}
     ft_that_lost.winner = 0
