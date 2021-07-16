@@ -1,4 +1,5 @@
 class PlayersController < ApplicationController
+    before_action :redirect_if_not_signed_in
 
     def index
         @players = Player.all

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_15_142045) do
+ActiveRecord::Schema.define(version: 2021_07_16_115409) do
 
   create_table "colleges", force: :cascade do |t|
     t.string "name"
@@ -68,11 +68,12 @@ ActiveRecord::Schema.define(version: 2021_07_15_142045) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "name"
-    t.string "password"
     t.boolean "is_admin"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "username"
+    t.string "password_digest"
+    t.string "fullname"
   end
 
 end

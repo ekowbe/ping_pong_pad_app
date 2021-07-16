@@ -1,0 +1,16 @@
+<h1>Sign In</h1>
+
+<p><strong><%= flash[:message] if flash[:message] %></strong></p>
+
+<%= form_with scope: :user, url: signin_path do |f| %>
+  <%= f.label :username %>
+  <%= f.text_field :username %><br>
+  <%= f.label :password %>
+  <%= f.text_field :password %><br>
+
+  <br>
+  <%= f.submit "Sign In" %>
+<% end %>
+
+<br>
+<p>New User? <%= link_to 'Sign Up!', signup_path %></p>
