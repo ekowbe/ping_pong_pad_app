@@ -1,34 +1,34 @@
-<h1>Fixture Show Page</h1>
+<div class="container">
+    <h1 class="display-1">Fixture Show Page</h1>
+    <br>
+    <table class="table table-hover table-borderless">
+        <thead>
+            <tr>
+                <th scope="col"><%= link_to @team1.name, team_path(@team1) %></th>
+                <th scope="col">&nbsp;</th>
+                <th scope="col"><%= link_to @team2.name, team_path(@team2) %></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><%=  @team1.num_games_played %></th>
+                <td>Games Played</td>
+                <td><%= @team2.num_games_played %></th>
+            </tr>
+            <tr>
+                <td><%=  @team1.num_games_won %></th>
+                <td>Won</td>
+                <td><%= @team2.num_games_won %></td>
+            </tr>
+            <tr>
+                <td><%=  @team1.num_games_lost %></th>
+                <td>Lost</td>
+                <td><%= @team2.num_games_lost %></td>
+            </tr>
+        </tbody>
+    </table>
 
-<table>
-    <tr>
-        <th><%= link_to @team2.name, team_path(@team2) %></th>
-        <td>&nbsp;</td>
-        <th><%= link_to @team1.name, team_path(@team1) %></th>
-    </tr>
 
-    <tr>
-        <td><%=  @team1.num_games_played %></td>
-        <td>Games Played</td>
-        <td><%=  @team2.num_games_played %></td>
-        
-
-    </tr>
-
-    <tr>
-        <td><%=  @team1.num_games_won %></td>
-        <td>Won</td>
-        <td><%=  @team2.num_games_won %></td>
-
-    </tr>
-
-        <td><%=  @team1.num_games_lost %></td>
-        
-        <td>Lost</td>
-        <td><%=  @team2.num_games_lost %></td>
-        
-
-    </tr>
-</table>
-
-        
+    <%= link_to "Back to Fixtures", fixtures_path %>
+            
+</div>

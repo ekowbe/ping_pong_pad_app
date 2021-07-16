@@ -5,7 +5,7 @@ class Team < ApplicationRecord
     has_many :fixtures, through: :fixture_teams
 
     def num_games_played
-        self.fixture_teams.count
+        self.fixtures.select{|f| f.completed == true }.count
     end
 
     def num_games_won
