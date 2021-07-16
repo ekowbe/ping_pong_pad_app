@@ -113,9 +113,14 @@ def create_match_players(match)
     
     teams = match.fixture.teams
     
+    if rand(0...100000) % 2 == 0
+        winner = 0
+    else
+        winner = 1
+    end
 
     teams.each do |t|
-        winner = 1
+        
         #byebug
         match_player = MatchPlayer.new
         match_player.match = match
@@ -135,7 +140,7 @@ def create_match_players(match)
             #byebug
             ft.save
             #byebug
-            if rand(0...100000) % 2 ==0
+            if winner  == 1
                 winner = 0
             else
                 winner = 1
